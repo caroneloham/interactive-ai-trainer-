@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Art du Dialogue avec l'IA | Formation Interactive</title>
+    <!-- Ajout de la bibliothèque Marked.js pour le rendu Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lien vers le fichier CSS externe -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>L'Art du Dialogue avec l'IA</h1>
+                <p>Découvrez comment transformer vos idées en résultats extraordinaires en apprenant à communiquer efficacement avec les intelligences artificielles.</p>
+                <a href="#introduction" class="btn">Commencer l'exploration</a>
+            </div>
+            
+            <canvas id="background-canvas"></canvas>
+            <canvas id="particle-canvas"></canvas>
+        </section>
+
+        <section id="introduction" class="section">
+            <h2>Qu'est-ce qu'un "Prompt" ?</h2>
+            <div class="card"><p>Imaginez un prompt comme le brief créatif que vous donneriez à un expert mondial. C'est votre instruction, votre question ou votre idée de départ. La magie de l'IA réside dans sa capacité à interpréter ce prompt, mais la qualité de sa réponse dépend directement de la clarté et de la précision de votre demande.</p></div>
+        </section>
+
+        <section id="prompt-rules" class="section">
+            <h2>Les Clés d'un Prompt Réussi</h2>
+            <div class="card"><h3>1. Donnez un Rôle et une Mission</h3><p>Au lieu d'une question simple, attribuez un rôle à l'IA. Par exemple : <code>"Tu es un expert en marketing digital. Propose-moi trois slogans pour un nouveau café bio."</code>. Cela cadre l'expertise et le ton attendus.</p></div>
+            <div class="card"><h3>2. Fournissez un Contexte Clair</h3><p>L'IA ne lit pas dans vos pensées. Donnez-lui le contexte nécessaire. <code>"Je prépare une présentation pour des investisseurs. Crée une liste à puces des 5 avantages principaux de notre produit, qui est une application de gestion du temps."</code></p></div>
+            <div class="card"><h3>3. Précisez le Format de Sortie</h3><p>Soyez explicite sur la forme que doit prendre la réponse. Vous voulez un tableau, un email, une liste, un poème, du code ? Demandez-le ! <code>"Résume les points clés sous la forme d'un tableau à deux colonnes : 'Caractéristique' et 'Avantage pour l'utilisateur'."</code></p></div>
+            <div class="card"><h3>4. Itérez et Affinez : Le Dialogue est Clé</h3><p>Votre premier prompt n'a pas besoin d'être parfait. Considérez la première réponse de l'IA comme un brouillon. Dialoguez avec elle pour l'améliorer. Demandez des modifications, des clarifications ou des alternatives. <code>"J'aime la deuxième proposition, mais peux-tu la rendre plus percutante et plus courte ?"</code></p></div>
+            <div class="card"><h3>5. Donnez des Exemples : Le "Montrer, ne pas Dire"</h3><p>Pour des tâches complexes, la manière la plus efficace de guider l'IA est de lui montrer exactement ce que vous attendez. C'est la technique du "few-shot prompting". Donnez-lui un ou deux exemples complets pour cadrer parfaitement le format et le style de la réponse. <code>"Corrige la grammaire des phrases suivantes. Exemple : 'Il sont aller au parc.' -> 'Ils sont allés au parc.'. Maintenant, corrige : 'Les voiture roule vite.'"</code></p></div>
+        </section>
+
+        <section id="sandbox" class="section">
+            <h2>Le Laboratoire Créatif</h2>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto 4rem auto; color: var(--color-text-muted);">Il est temps de passer de la théorie à la pratique. Utilisez cet espace pour expérimenter avec vos propres prompts et dialoguer en direct avec l'IA.</p>
+            <div class="card">
+                <div class="prompt-examples">
+                    <h4>Besoin d'inspiration ? Essayez l'un de ces exemples :</h4>
+                    <button class="example-btn" data-prompt="Agis comme un chef cuisinier. Propose une recette de pâtes simple, rapide et végétarienne pour un dîner de semaine.">Recette de cuisine</button>
+                    <button class="example-btn" data-prompt="Rédige un e-mail professionnel court pour demander un retour sur une proposition de projet envoyée hier.">Email professionnel</button>
+                    <button class="example-btn" data-prompt="Explique le concept de la photosynthèse comme si je parlais à un enfant de 10 ans.">Vulgarisation scientifique</button>
+                    <button class="example-btn" data-prompt="Agis comme un développeur web expert. Génère le code pour une page d'accueil moderne pour un café fictif nommé 'AstroCafé'. Le code doit être un seul fichier HTML autonome. Intègre le CSS directement dans la balise `<style>` à l'intérieur du `<head>`. La page doit avoir une section d'accueil, une courte présentation, et un pied de page. Utilise un thème sombre avec des accents dorés et n'utilise aucune image externe.">Code de site web</button>
+                </div>
+
+                <h3>Votre Instruction</h3>
+                <textarea id="prompt-input" placeholder="Écrivez votre prompt ici..."></textarea>
+                <div style="text-align: center; margin: 1.5rem 0 2.5rem;"><button id="generateBtn" class="btn"><span>Envoyer à l'IA</span></button></div>
+                
+                <h3 id="response-title">Réponse de l'IA</h3>
+                <div id="result-container">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.2; margin-bottom: 1rem;"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" fill="currentColor"/><path d="M12 6C11.17 6 10.5 6.67 10.5 7.5C10.5 8.33 11.17 9 12 9C12.83 9 13.5 8.33 13.5 7.5C13.5 6.67 12.83 6 12 6ZM12 15C11.17 15 10.5 15.67 10.5 16.5C10.5 17.33 11.17 18 12 18C12.83 18 13.5 17.33 13.5 16.5C13.5 15.67 12.83 15 12 15ZM7.5 10.5C6.67 10.5 6 11.17 6 12C6 12.83 6.67 13.5 7.5 13.5C8.33 13.5 9 12.83 9 12C9 11.17 8.33 10.5 7.5 10.5ZM16.5 10.5C15.67 10.5 15 11.17 15 12C15 12.83 15.67 13.5 16.5 13.5C17.33 13.5 18 12.83 18 12C18 11.17 17.33 10.5 16.5 10.5Z" fill="currentColor"/></svg>
+                    <p>En attente de votre instruction...</p>
+                </div>
+                
+                <div id="analyzer-section" class="analyzer-section" style="display: none;">
+                    <h3>Analyse de votre Prompt</h3>
+                    <div class="analyzer-content">
+                        <div class="analyzer-score-card">
+                            <div id="prompt-score" class="score-circle">--</div>
+                            <p>Note de Qualité</p>
+                        </div>
+                        <div class="analyzer-feedback-card">
+                            <h4>Pistes d'amélioration :</h4>
+                            <ul id="prompt-feedback">
+                                <li>Envoyez un prompt pour recevoir une analyse.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="suggestion-container" class="suggestion-card" style="display: none;">
+                        <h5>Suggestion d'Amélioration</h5>
+                        <p id="improved-prompt-text"></p>
+                        <button id="use-improved-prompt-btn" class="btn-secondary">Utiliser ce prompt</button>
+                    </div>
+                </div>
+
+                <div id="history-section" class="history-section" style="display: none;">
+                    <h3>Votre Progression</h3>
+                    <div class="history-content">
+                        <div class="history-stat">
+                            <h4>Note Moyenne (5 derniers)</h4>
+                            <p id="average-score">--</p>
+                        </div>
+                        <div class="history-stat">
+                            <h4>Point d'amélioration principal</h4>
+                            <p id="common-mistake">--</p>
+                        </div>
+                        <div class="history-stat full-width">
+                            <h4>Évolution de votre score</h4>
+                            <div id="score-chart" class="score-chart"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- NOUVEAU : Modal pour la clé API -->
+    <div id="api-key-overlay" class="api-key-overlay hidden">
+        <div id="api-key-modal" class="api-key-modal">
+            <h3>Configuration Requise</h3>
+            <p>Pour interagir avec l'IA, veuillez entrer votre clé API Google AI Studio.</p>
+            <p id="api-key-error" class="api-key-error hidden"></p>
+            <input type="password" id="api-key-input" placeholder="Collez votre clé API ici...">
+            <button id="save-api-key-btn" class="btn">Sauvegarder et Utiliser</button>
+            <a href="https://aistudio.google.com/" target="_blank">Obtenir une clé API</a>
+        </div>
+    </div>
+
+    <!-- Bouton pour changer le thème -->
+    <div id="theme-switcher" class="theme-switcher" title="Changer le thème">
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    </div>
+
+    <!-- Lien vers le fichier JavaScript externe -->
+    <script src="script.js"></script>
+</body>
+</html>
