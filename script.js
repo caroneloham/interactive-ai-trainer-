@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             userApiKey = key;
             hideApiKeyModal();
         } else {
-            showApiKeyModal('Veuillez entrer une clé API valide.');
+            showApiKeyModal('Veuillez entrer une clé valide.');
         }
     });
 
@@ -90,7 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function makeApiCall(promptText) {
         if (!userApiKey) {
-            throw new Error("Clé API manquante. Veuillez en fournir une.");
+            showApiKeyModal('Veuillez fournir votre clé API pour continuer.');
+            throw new Error("Clé API manquante.");
         }
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${userApiKey}`;
         const res = await fetch(API_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] }) });
@@ -127,11 +128,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('API Error:', error);
-            // Si la clé est invalide, on la supprime et on demande à nouveau
             if (error.message.includes('API key not valid')) {
                 localStorage.removeItem('userApiKey');
                 userApiKey = null;
-                showApiKeyModal('Votre clé API est invalide. Veuillez la vérifier.');
+                showApiKeyModal('Votre clé est invalide. Veuillez réessayer.');
             }
             resultContainer.innerHTML = `<p class="reveal-on-load" style="color:#ff8a80;">Une erreur est survenue : ${error.message}</p>`;
             resultContainer.classList.add('has-content');
